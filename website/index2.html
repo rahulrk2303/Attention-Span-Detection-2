@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login V1</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/0be63cce9a.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+
+  <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+
+  <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+
+  <link rel="stylesheet" type="text/css" href="css/util.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+ 
+  <script>
+
+  var vid = document.getElementById("myVideo");
+  window.onload="vid.play();"
+  </script>
+  <style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700,900');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Raleway', sans-serif;
+      /*text-align: center;*/
+      /*background-color: #232323;*/
+      color: white;
+      overflow-x: hidden;
+    }
+    .modalDialog {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black w/ opacity */
+    z-index: 99999;
+    opacity: 0;
+    pointer-events: none;
+    color: white;
+
+  }
+
+  .modalDialog:target {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modalDialog>div {
+    width: 50rem;
+    hieght: 50rem;
+    position: relative;
+    margin: 30vh auto;
+    padding: 4em;
+    background: rgba(0, 0, 0, 0.9);
+    /*text-align: center;*/
+    /*border: 2px solid #00ff6c;*/
+  }
+
+  .modalDialog a {
+    color: #fff;
+  }
+
+  .close {
+    background: #606061;
+    color: #FFF;
+    line-height: 25px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 24px;
+    text-decoration: none;
+    font-weight: 300;
+  }
+
+  .close:hover {
+    background: #00ff6c;
+  }
+
+
+  </style>
+
+</head>
+<body>
+<!-- <div class="limiter"> -->
+    <div class="container-login100">
+       <div class="wrap-login100">
+         <div style="margin-top:-8rem">
+           <h2 style="color:black">Machine Learning</h2>
+
+         </br></br>
+          <video id="myVideo" width="800" height="500" loop autoplay controls>
+            <source src="vid.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+            </video>
+        </br><br>
+
+         </div>
+       </div>
+    </div>
+
+
+
+<!-- <center>
+<button onclick="playVid()" type="button">Play Video</button>
+<button onclick="pauseVid()" type="button">Pause Video</button><br>
+</center> -->
+
+<div id="confirm-modal0" class="modalDialog">
+    <div>
+      <h2>Which of the following are applications of Machine learning ?</h2><br><br>
+      <form>
+      <a href="#close" title="Close" class="close">x</a>
+      <input type="radio" id="a1" name="drone" value="nlp" checked> Natural Language processing</input></br><br>
+      <input type="radio" id="a2" name="drone" value="rob"> Robotics</input></br><br>
+      <input type="radio" id="a3" name="drone" value="weather"> Weather prediction</input></br><br>
+      <input type="radio" id="a4" name="drone" value="all"> All of the above</input></br><br>
+    </br>
+    <button style="color:white" type="submit" onclick="funcc(); playVid();">Submit</button>
+    <!-- <a href="rider_dashboard.html">submit</a> -->
+  </form>
+    </div>
+</div>
+
+
+<div id="confirm-modal1" class="modalDialog">
+    <div>
+      <h2>What is the size of INT datatype in C++ ?</h2><br><br>
+      <form>
+      <a href="#close" title="Close" class="close">x</a>
+      <input type="radio" id="b1" name="drone" value="1b" checked> 1 bytes</input></br><br>
+      <input type="radio" id="b2" name="drone" value="2b"> 2 bytes</input></br><br>
+      <input type="radio" id="b3" name="drone" value="4b"> 4 bytes</input></br><br>
+      <input type="radio" id="b4" name="drone" value="8b"> 8 bytes</input></br><br>
+    </br>
+    <button style="color:white" type="submit" onclick="funcc1(); playVid1();">Submit</button>
+    <!-- <a href="rider_dashboard.html">submit</a> -->
+  </form>
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+var vid = document.getElementById("myVideo");
+
+function playVid() {
+  vid.currentTime=10;
+  vid.play();
+}
+
+function playVid1() {
+  vid.currentTime=20;
+  vid.play();
+}
+
+function pauseVid() {
+  vid.pause();
+}
+
+function funcc() {
+
+  document.getElementById("confirm-modal0").style.display = "none";
+  playVid();
+}
+
+function funcc1() {
+
+  document.getElementById("confirm-modal1").style.display = "none";
+  playVid1();
+}
+
+
+
+setTimeout(function(){
+  window.location.href='#confirm-modal0';
+  pauseVid();
+}, 10000 );
+
+setTimeout(function(){
+   window.location.href='#confirm-modal1';
+   pauseVid();
+}, 20000 );
+
+</script>

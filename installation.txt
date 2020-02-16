@@ -1,0 +1,23 @@
+Open "anaconda prompt" and enter the following commands :
+
+conda create --name attention python=3.6
+activate attention
+conda install -c conda-forge dlib
+conda install tensorflow-gpu==1.12.0
+pip install opencv-python==3.4.3.18
+pip install opencv-contrib-python==3.4.3.18
+pip install flask
+pip install keras==2.2.4
+pip install pillow
+pip install scikit-learn
+pip install scikit-image
+pip install scipy
+pip install pandas
+pip install wheel
+pip install h5py
+pip install imutils
+pip install matplotlib
+pip install xlwt
+pip install PyAudio
+pip install ipykernel
+python -m ipykernel install --user --name attention --display-name "attention"
