@@ -2,8 +2,11 @@ from scipy.spatial import distance as dist
 from imutils.video import FileVideoStream
 from imutils.video import VideoStream
 from imutils import face_utils
+from threading import Thread
+import playsound
+
 import imutils
-import argparse
+# import argparse
 import time
 import dlib
 import cv2
@@ -23,20 +26,29 @@ def eye_aspect_ratio(eye):
         return ear
 
 COUNTER = 0
+COUNTER_SLEEP = 0
 TOTAL = 0
+ALARM_ON = False
 
 def blink_count():
     global TOTAL
     return TOTAL
 
+def sound_alarm():
+    # play an alarm sound
+    playsound.playsound("alarm.wav")
+
 def func(vs=None):
     # args = vars(ap.parse_args())
     EYE_AR_THRESH = 0.27
     EYE_AR_CONSEC_FRAMES = 2
+    EYE_AR_CONSEC_FRAMES_SLEEP = 30
 
     # initialize the frame counters and the total number of blinks
     global COUNTER
+    global COUNTER_SLEEP
     global TOTAL
+    global ALARM_ON
 
     # initialize dlib's face detector (HOG-based) and then create the facial landmark predictor
 
@@ -46,7 +58,7 @@ def func(vs=None):
     # grab the indexes of the facial landmarks for the left and right eye, respectively
     (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
     (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
-
+    time.sleep(1)
     while timer_run:
 
         frame  = vs.read()
@@ -80,15 +92,36 @@ def func(vs=None):
                 # check to see if the eye aspect ratio is below the blink threshold, and if so, increment the blink frame counter
                 if ear < EYE_AR_THRESH:
                         COUNTER += 1
+                        COUNTER_SLEEP += 1
+                        if COUNTER_SLEEP >= EYE_AR_CONSEC_FRAMES_SLEEP:
+                            # if the alarm is not on, turn it on
+                            if not ALARM_ON:
+                                ALARM_ON = True
+
+                                # check to see if an alarm file was supplied,
+                                # and if so, start a thread to have the alarm
+                                # sound played in the background
+                                # if args["alarm"] != "":
+                                t = Thread(target=sound_alarm)
+                                t.deamon = True
+                                t.start()
+
+                            # draw an alarm on the frame
+                            cv2.putText(frame, "TAKE A BREAK!", (220, 450),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
+
+
                 else:
                         if COUNTER >= EYE_AR_CONSEC_FRAMES:
                                 TOTAL += 1
 
                         COUNTER = 0
+                        COUNTER_SLEEP = 0
+                        ALARM_ON = False
 
                 cv2.putText(frame, "Blinks: {}".format(TOTAL), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
-        
+                
 
         cv2.imshow("blink", frame)
 

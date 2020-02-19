@@ -12,7 +12,7 @@ import imutils
 from audio2 import audio, ret_noise, stop_audio_thread
 from flask import url_for, jsonify, Flask, render_template, request, jsonify
 from mail import send_mail
-# from normalize import norm, norm1
+from normalize import norm
 
 
 app = Flask(__name__)
@@ -22,7 +22,7 @@ timer_run = True
 
 
 class WebcamVideoStream :
-	def __init__(self, src = 1, width = 640, height = 480) :
+	def __init__(self, src = 0, width = 640, height = 480) :
 		self.stream = cv2.VideoCapture(src)
 		self.stream.set( cv2.CAP_PROP_FRAME_WIDTH, width)
 		self.stream.set( cv2.CAP_PROP_FRAME_HEIGHT, height)
@@ -149,7 +149,7 @@ def timer ():
 		time.sleep(1)
 		global i
 		i = i+1
-		if i>=500:
+		if i>=30:
 			timer_run = False
 
 
@@ -161,14 +161,14 @@ if __name__ == '__main__':
 	t2 = Thread(target = timer)
 	t3 = Thread(target = func, kwargs={'vs': wvs})
 	t6 = Thread(target = audio)
-	# t7 = Thread(target = norm1)
+
 
 	t4.start()
 	t1.start()
 	t2.start()
 	t3.start()	
 	t6.start()
-	# t7.start()
+
 
 	ttt = 0
 	ii = 1
@@ -204,7 +204,6 @@ if __name__ == '__main__':
 		sheet1.write(ii,3,exp)
 		sheet1.write(ii,4,distract_mean)
 		sheet1.write(ii,5,rn)
-		# norm()
 
 
 		distract.clear()

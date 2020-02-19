@@ -3,7 +3,7 @@ import numpy as np
 import time
 import xlwt
 from xlwt import Workbook
-
+import cv2
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
@@ -24,12 +24,12 @@ def norm():
 
 	fig = plt.figure(1)
 	# set up subplot grid
+
+
 	gridspec.GridSpec(3,3)
 
-	# large subplot
+	# small subplot 0
 	plt.subplot2grid((2,3), (0,0))
-	plt.locator_params(axis='x', nbins=5)
-	plt.locator_params(axis='y', nbins=5)
 	plt.plot(time,blink)
 	plt.title('Blink rate')
 	plt.xlabel('Time (s)')
@@ -37,8 +37,6 @@ def norm():
 
 	# small subplot 1
 	plt.subplot2grid((2,3), (0,1))
-	plt.locator_params(axis='x', nbins=5)
-	plt.locator_params(axis='y', nbins=5)
 	plt.plot(time,pixel)
 	plt.title('Position change')
 	plt.xlabel('Time (s)')
@@ -46,8 +44,6 @@ def norm():
 
 	# small subplot 2
 	plt.subplot2grid((2,3), (0,2))
-	plt.locator_params(axis='x', nbins=5)
-	plt.locator_params(axis='y', nbins=5)
 	plt.plot(time,emotion)
 	plt.title('Emotion')
 	plt.xlabel('Time (s)')
@@ -55,8 +51,6 @@ def norm():
 
 	# small subplot 3
 	plt.subplot2grid((2,3), (1,0))
-	plt.locator_params(axis='x', nbins=5)
-	plt.locator_params(axis='y', nbins=5)
 	plt.plot(time,dist)
 	plt.title('Looking at')
 	plt.xlabel('Time (s)')
@@ -64,8 +58,6 @@ def norm():
 
 	# small subplot 4
 	plt.subplot2grid((2,3), (1,1))
-	plt.locator_params(axis='x', nbins=5)
-	plt.locator_params(axis='y', nbins=5)
 	plt.plot(time,noise)
 	plt.title('Noise level')
 	plt.xlabel('Time (s)')
@@ -88,29 +80,40 @@ def norm():
 	for i in range(len(time)):
 		att.append((blink[i])*0.2 + emotion[i]*0.2 + pixel[i]*0.2 + dist[i]*0.2 + (noise[i])*0.2)
 
-	dfout = pd.DataFrame(list(zip(time, blink, pixel, emotion, dist, noise, att)), columns =['Time', 'Blink count', 'Pixel Similarity', 'Emotion', 'Looking at', 'Noise level', 'Average attention'])
-	print(dfout)
+	# dfout = pd.DataFrame(list(zip(time, blink, pixel, emotion, dist, noise, att)), columns =['Time', 'Blink count', 'Pixel Similarity', 'Emotion', 'Looking at', 'Noise level', 'Average attention'])
+	# print(dfout)
 
 
 	# small subplot 5
 	plt.subplot2grid((2,3), (1,2))
-	plt.locator_params(axis='x', nbins=5)
-	plt.locator_params(axis='y', nbins=5)
 	plt.plot(time,att)
 	plt.title('Attention level')
 	plt.xlabel('Time (s)')
 	plt.ylabel('Attention lenvel')
 
-	out = "Average attention span is : " + str(np.mean(att))
+	avgatt =  round(np.mean(att)*100, 2)
+	out = "Your Average attention span is : " + str(avgatt) + "%"
+
+	fig.suptitle(out)
 
 	print(out)
 
 	fig.tight_layout()
-	fig.set_size_inches(w=15,h=7)
+	fig.set_size_inches(w=15,h=8)
 	fig_name = 'plot.png'
+
 	fig.savefig(fig_name)
 
+	# fig = plt.figure(2)
+	# img = plt.imread(fig_name)
+	# plt.imshow(img)
+	# plt.show()
+
 	# send_mail(out)
+	# print("Mail sent !")
 
 if __name__ == '__main__':
-	norm()
+	while True:
+		time.sleep(5)
+		norm()
+	# norm()
