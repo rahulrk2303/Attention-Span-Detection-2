@@ -73,7 +73,7 @@
 		}
 
 		.close:hover {
-			background: #00ff6c;
+			background: #00f;
 		}
 	</style>
 
@@ -82,8 +82,8 @@
 </head>
 <body>
 	<div>
-		<video id="myVideo" width="800" height="500" loop autoplay>
-            <source src="../static/vid.mp4" type="video/mp4">
+		<video id="myVideo" width="800" height="500" loop autoplay controls>
+            <source src="static/vid.mp4" type="video/mp4">
         </video>
 	</div>
 
@@ -119,7 +119,7 @@
 </div>
 	<script type="text/javascript">
 		var vid = document.getElementById("myVideo");
-		// window.onload=vid.play();
+		window.onload=vid.play();
 
 		var t0 = 10;
 		var t1 = 20;
