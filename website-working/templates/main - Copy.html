@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>video</title>
+
+	<style type="text/css">
+    	@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700,900');
+
+		* {
+		  box-sizing: border-box;
+		}
+
+		body {
+		  margin: 0;
+		  font-family: 'Raleway', sans-serif;
+		  /*text-align: center;*/
+		  /*background-color: #232323;*/
+		  color: white;
+		  overflow-x: hidden;
+		}
+		.modalDialog {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		overflow: auto;
+		/* Enable scroll if needed */
+		background-color: rgb(0, 0, 0);
+		/* Fallback color */
+		background-color: rgba(0, 0, 0, 0.5);
+		/* Black w/ opacity */
+		z-index: 99999;
+		opacity: 0;
+		pointer-events: none;
+		color: white;
+
+		}
+
+		.modalDialog:target {
+		opacity: 1;
+		pointer-events: auto;
+		}
+
+		.modalDialog>div {
+		width: 50rem;
+		hieght: 50rem;
+		position: relative;
+		margin: 30vh auto;
+		padding: 4em;
+		background: rgba(0, 0, 0, 0.9);
+		/*text-align: center;*/
+		/*border: 2px solid #00ff6c;*/
+		}
+
+		.modalDialog a {
+		color: #fff;
+		}
+
+		.close {
+		background: #606061;
+		color: #FFF;
+		line-height: 25px;
+		position: absolute;
+		right: 0;
+		text-align: center;
+		top: 0;
+		width: 24px;
+		text-decoration: none;
+		font-weight: 300;
+		}
+
+		.close:hover {
+		background: #00ff6c;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<video id="myVideo" width="800" height="500" loop autoplay controls>
+            <source src="../static/vid.mp4" type="video/mp4">
+        </video>
+	</div>
+
+	<div id="confirm-modal0" class="modalDialog">
+    <div>
+		<h2>Which of the following are applications of Machine learning ?</h2><br><br>
+		<form>
+		      <a href="#close" title="Close" class="close">x</a>
+		      <input type="radio" id="a1" name="drone" value="1" checked> Natural Language processing</input></br><br>
+		      <input type="radio" id="a2" name="drone" value="2"> Robotics</input></br><br>
+		      <input type="radio" id="a3" name="drone" value="3"> Weather prediction</input></br><br>
+		      <input type="radio" id="a4" name="drone" value="4"> All of the above</input></br><br></br>
+		    <button type="submit" onclick="funcc(); return false;">Submit</button>
+	    	<!-- <a href="rider_dashboard.html">submit</a> -->
+  		</form>
+    </div>
+</div>
+
+
+<div id="confirm-modal1" class="modalDialog">
+    <div>
+		<h2>What is the size of INT datatype in C++ ?</h2><br><br>
+		<form>
+			<a href="#close" title="Close" class="close">x</a>
+			<input type="radio" id="b1" name="drone" value="1" checked> 1 bytes</input></br><br>
+			<input type="radio" id="b2" name="drone" value="2"> 2 bytes</input></br><br>
+			<input type="radio" id="b3" name="drone" value="3"> 4 bytes</input></br><br>
+			<input type="radio" id="b4" name="drone" value="4"> 8 bytes</input></br><br></br>
+		    <button type="submit" onclick="funcc1(); return false;">Submit</button>
+		    <!-- <a href="rider_dashboard.html">submit</a> -->
+		</form>
+    </div>
+</div>
+
+
+<script>
+	var vid = document.getElementById("myVideo");
+	window.onload=vid.play();
+
+	var t0 = 20;
+	var t1 = 40;
+	
+
+	var canswers = [4,2]
+	var answers = []
+
+	vid.addEventListener("timeupdate", function(){
+	    if(this.currentTime >=t0 && this.currentTime <= (t0+0.2)) {
+	        this.pause();
+	        window.location.href='#confirm-modal0';
+	        // vid.removeEventListener("timeupdate", function(){});
+	        // return false;
+	    }
+
+	    if(this.currentTime >=t1 && this.currentTime <= (t1+0.2)) {
+	        this.pause();
+	        window.location.href='#confirm-modal1';
+	        // vid.removeEventListener("timeupdate", function(){});
+	    }
+
+
+	});
+
+	function funcc() {
+		if (document.getElementById('a4').checked) {
+			answers[0] = 1;
+		}
+		else {
+			answers[0] = 0;
+		}
+		document.getElementById("confirm-modal0").style.display = "none";
+		vid.currentTime=(t0+0.3);
+		vid.play()
+	}
+
+
+	function funcc1() {
+		if (document.getElementById('b2').checked) {
+			answers[1] = 1;
+		}
+		else {
+			answers[1] = 0;
+		}
+		document.getElementById("confirm-modal1").style.display = "none";
+		vid.currentTime=(t1+0.3);
+		vid.play()
+	}
+
+
+</script>
+</body>
+
+</html>
