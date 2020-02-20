@@ -21,3 +21,6 @@ pip install xlwt
 pip install PyAudio
 pip install ipykernel
 python -m ipykernel install --user --name attention --display-name "attention"
+
+pip install playsound 
+pip install seaborn
