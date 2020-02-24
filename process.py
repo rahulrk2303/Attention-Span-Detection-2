@@ -23,7 +23,7 @@ timer_run = True
 
 
 class WebcamVideoStream :
-	def __init__(self, src = 1, width = 640, height = 480) :
+	def __init__(self, src = 0, width = 640, height = 480) :
 		self.stream = cv2.VideoCapture(src)
 		self.stream.set( cv2.CAP_PROP_FRAME_WIDTH, width)
 		self.stream.set( cv2.CAP_PROP_FRAME_HEIGHT, height)
