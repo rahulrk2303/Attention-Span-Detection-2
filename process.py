@@ -12,6 +12,7 @@ import imutils
 from audio2 import audio, ret_noise, stop_audio_thread
 from flask import url_for, jsonify, Flask, render_template, request, jsonify
 from mail import send_mail
+from Test.face_recognition.recognize_video import face_rec, ret_score
 # from normalize import norm, norm1
 
 
@@ -153,14 +154,14 @@ def timer ():
 			timer_run = False
 
 
-if __name__ == '__main__':
-
+def attention():
 	wvs = WebcamVideoStream()
 	t4 = Thread(target = expr, kwargs={'video_capture': wvs})
 	t1 = Thread(target = capture, kwargs={'cap': wvs})
 	t2 = Thread(target = timer)
 	t3 = Thread(target = func, kwargs={'vs': wvs})
 	t6 = Thread(target = audio)
+	t7 = Thread(target = face_rec, kwargs={'vss': wvs})
 	# t7 = Thread(target = norm1)
 
 	t4.start()
@@ -168,6 +169,7 @@ if __name__ == '__main__':
 	t2.start()
 	t3.start()	
 	t6.start()
+	t7.start()
 	# t7.start()
 
 	ttt = 0
@@ -182,7 +184,8 @@ if __name__ == '__main__':
 	sheet1.write(0, 3, 'Emotion')
 	sheet1.write(0, 4, 'Looking at')
 	sheet1.write(0, 5, 'Noise level')
-	b1 = b3 = ssim = exp = distract_mean = rn = 0
+	sheet1.write(0, 6, 'Face Auth')
+	b1 = b3 = exp = distract_mean = rn = 0
 
 	while(timer_run):
 		time.sleep(5)
@@ -194,6 +197,7 @@ if __name__ == '__main__':
 		exp = ret_exp()
 		distract_mean = np.mean(distract)
 		rn = ret_noise()
+		face = ret_score()
 
 		if np.isnan(distract_mean):
 			distract_mean = 0.55
@@ -204,6 +208,7 @@ if __name__ == '__main__':
 		sheet1.write(ii,3,exp)
 		sheet1.write(ii,4,distract_mean)
 		sheet1.write(ii,5,rn)
+		sheet1.write(ii,6,face)
 		# norm()
 
 
@@ -224,4 +229,9 @@ if __name__ == '__main__':
 	t3.join()
 	t6.join()
 	
+
+
+
+if __name__ == '__main__':
+	attention()
 

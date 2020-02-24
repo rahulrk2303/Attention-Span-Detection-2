@@ -102,9 +102,11 @@ def func(vs=None):
                                 # and if so, start a thread to have the alarm
                                 # sound played in the background
                                 # if args["alarm"] != "":
-                                t = Thread(target=sound_alarm)
-                                t.deamon = True
-                                t.start()
+
+                                
+                                # t = Thread(target=sound_alarm)
+                                # t.deamon = True
+                                # t.start()
 
                             # draw an alarm on the frame
                             cv2.putText(frame, "TAKE A BREAK!", (220, 450),

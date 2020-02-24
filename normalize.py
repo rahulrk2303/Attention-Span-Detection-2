@@ -20,7 +20,7 @@ def norm():
 	emotion = df['Emotion'].tolist()
 	dist = df['Looking at'].tolist()
 	noise = df['Noise level'].tolist()
-	# att = df['Attention level'].tolist()
+	face = df['Face Auth'].tolist()
 
 	fig = plt.figure(1)
 	# set up subplot grid
@@ -63,6 +63,12 @@ def norm():
 	plt.xlabel('Time (s)')
 	plt.ylabel('Noise level')
 
+	# plt.subplot2grid((2,3), (1,2))
+	# plt.plot(time,face)
+	# plt.title('Face recognition')
+	# plt.xlabel('Time (s)')
+	# plt.ylabel('Face Match')
+
 
 	bmin = min(blink)-0.1
 	bmax = max(blink)+0.1
@@ -89,7 +95,7 @@ def norm():
 	plt.plot(time,att)
 	plt.title('Attention level')
 	plt.xlabel('Time (s)')
-	plt.ylabel('Attention lenvel')
+	plt.ylabel('Attention level')
 
 	avgatt =  round(np.mean(att)*100, 2)
 	out = "Your Average attention span is : " + str(avgatt) + "%"
@@ -113,7 +119,4 @@ def norm():
 	# print("Mail sent !")
 
 if __name__ == '__main__':
-	while True:
-		time.sleep(5)
-		norm()
-	# norm()
+	norm()
